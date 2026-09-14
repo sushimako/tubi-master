@@ -72,20 +72,17 @@
     <form id="login-form">
       <h2>Anmelden</h2>
       <p class="hint">Deine gespeicherte Auswahl ersetzt die Auswahl in diesem Browser.</p>
-      <label>Passcode <input name="passcode" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="passcode" required></label>
+      <label>Passcode <input name="passcode" autocomplete="off" autocapitalize="none" spellcheck="false" required></label>
       <p class="form-error" hidden></p>
       <div class="dialog-actions">
         <button type="button" data-close>Abbrechen</button>
         <button type="submit">Anmelden</button>
       </div>
-      <p class="dialog-switch">Noch keinen Passcode? <button type="button" data-view="signup">Registrieren</button></p>
+      <p class="dialog-switch"><button type="button" data-view="signup">Registrieren</button></p>
     </form>
     <form id="signup-form" hidden>
       <h2>Registrieren</h2>
-      <p class="hint">
-        Deine aktuelle Auswahl wird gespeichert. Danach bekommst du einen Passcode,
-        mit dem du dich später wieder anmelden kannst.
-      </p>
+      <p class="hint">Deine aktuelle Auswahl wird gespeichert.</p>
       <label>Anzeigename <input name="name" autocomplete="nickname" required></label>
       <p class="form-error" hidden></p>
       <div class="dialog-actions">
