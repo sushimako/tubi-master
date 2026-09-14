@@ -1,6 +1,0 @@
-{
-  "104.391": {"courseNumber":"104.391","name":"Mathematik 3 für BI","type":"VU","hours":3,"ects":4,"semester":"W","cancelled":false},
-  "200.267": {"courseNumber":"200.267","name":"Facheinschlägige Praxis","type":"SE","hours":5,"ects":5,"semester":"W","cancelled":false},
-  "201.088": {"courseNumber":"201.088","name":"Physik 1 Aufbaukurs","type":"SE","hours":2,"ects":2,"semester":"W","cancelled":false},
-  "201.089": {"courseNumber":"201.089","name":"Mathematik Aufbaukurs","type":"SE","hours":2,"ects":2,"semester":"W","cancelled":false}
-}
