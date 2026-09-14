@@ -1,0 +1,16 @@
+[Unit]
+Description=TU Wien Curriculum Planner
+After=network.target
+
+[Service]
+Type=simple
+User=exedev
+WorkingDirectory=/home/exedev/curriculum
+ExecStart=/usr/bin/npm run start
+Restart=on-failure
+RestartSec=5
+Environment=NODE_ENV=production
+Environment=PORT=8000
+
+[Install]
+WantedBy=multi-user.target

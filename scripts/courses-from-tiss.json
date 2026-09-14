@@ -1,0 +1,650 @@
+{
+  "104.391": {
+    "courseNumber": "104.391",
+    "name": "Mathematik 3 für BI",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "200.267": {
+    "courseNumber": "200.267",
+    "name": "Facheinschlägige Praxis",
+    "type": "SE",
+    "hours": 5,
+    "ects": 5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "201.088": {
+    "courseNumber": "201.088",
+    "name": "Physik 1 Aufbaukurs",
+    "type": "SE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "201.089": {
+    "courseNumber": "201.089",
+    "name": "Mathematik Aufbaukurs",
+    "type": "SE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.019": {
+    "courseNumber": "202.019",
+    "name": "Engineering biochemoporomechanics",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.024": {
+    "courseNumber": "202.024",
+    "name": "Engineering Biochemoporomechanics",
+    "type": "UE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.044": {
+    "courseNumber": "202.044",
+    "name": "Experimentelle Methoden zur Deformationsanalyse",
+    "type": "VU",
+    "hours": 2.5,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.057": {
+    "courseNumber": "202.057",
+    "name": "Mechanische Eigenschaften biolog. Gewebe",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.058": {
+    "courseNumber": "202.058",
+    "name": "Mechanische Eigenschaften biolog. Gewebe",
+    "type": "LU",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.068": {
+    "courseNumber": "202.068",
+    "name": "Baustatik 2",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.071": {
+    "courseNumber": "202.071",
+    "name": "Exkursion Holzbau",
+    "type": "EX",
+    "hours": 1,
+    "ects": 1,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.649": {
+    "courseNumber": "202.649",
+    "name": "Multiscale Material Modelling",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.650": {
+    "courseNumber": "202.650",
+    "name": "Multiscale Material Modelling",
+    "type": "UE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.653": {
+    "courseNumber": "202.653",
+    "name": "Finite Elemente Methoden",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "202.658": {
+    "courseNumber": "202.658",
+    "name": "Flächentragwerke Theorie",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.660": {
+    "courseNumber": "202.660",
+    "name": "Finite Elemente Methoden 2",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.666": {
+    "courseNumber": "202.666",
+    "name": "Ingenieurmechanik",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.667": {
+    "courseNumber": "202.667",
+    "name": "Projektarbeit Tragwerke - Werkstoff- und Struktursimulation",
+    "type": "PA",
+    "hours": 6,
+    "ects": 6,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.668": {
+    "courseNumber": "202.668",
+    "name": "Projektarbeit Tragwerke - Festigkeitslehre und Numerische Mechanik",
+    "type": "PA",
+    "hours": 6,
+    "ects": 6,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.669": {
+    "courseNumber": "202.669",
+    "name": "Projektarbeit Theorie und Simulation - Festigkeitslehre und Numerische Mechanik",
+    "type": "PA",
+    "hours": 6,
+    "ects": 6,
+    "semester": "S",
+    "cancelled": false
+  },
+  "202.670": {
+    "courseNumber": "202.670",
+    "name": "Projektarbeit Theorie und Simulation - Werkstoff- und Struktursimulation",
+    "type": "PA",
+    "hours": 6,
+    "ects": 6,
+    "semester": "S",
+    "cancelled": false
+  },
+  "203.098": {
+    "courseNumber": "203.098",
+    "name": "Angewandte Felsmechanik",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.051": {
+    "courseNumber": "206.051",
+    "name": "Baulicher Brandschutz",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.072": {
+    "courseNumber": "206.072",
+    "name": "Schutzgasschweißen",
+    "type": "LU",
+    "hours": 4,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.092": {
+    "courseNumber": "206.092",
+    "name": "Schweißtechnik mit Exkursion",
+    "type": "SE",
+    "hours": 3,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.101": {
+    "courseNumber": "206.101",
+    "name": "Hochbaukonstruktionen 2",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.174": {
+    "courseNumber": "206.174",
+    "name": "Metallische Werkstoffe 1",
+    "type": "VO",
+    "hours": 3,
+    "ects": 4.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.287": {
+    "courseNumber": "206.287",
+    "name": "Erhaltung und Erneuerung von Hochbauten",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.289": {
+    "courseNumber": "206.289",
+    "name": "Bauphysik - Hygrothermische Bauteilanalyse",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.290": {
+    "courseNumber": "206.290",
+    "name": "Schallschutz und Akustik",
+    "type": "VU",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.299": {
+    "courseNumber": "206.299",
+    "name": "Messtechnische Verfahren in der Baudynamik",
+    "type": "VU",
+    "hours": 2.5,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "206.301": {
+    "courseNumber": "206.301",
+    "name": "Baudynamik",
+    "type": "VO",
+    "hours": 2.5,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "212.010": {
+    "courseNumber": "212.010",
+    "name": "Modellbildung und Berechnung im Betonbau",
+    "type": "VO",
+    "hours": 1.5,
+    "ects": 2.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "212.456": {
+    "courseNumber": "212.456",
+    "name": "Stahlbau 2",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "212.457": {
+    "courseNumber": "212.457",
+    "name": "Stahlbau 3",
+    "type": "VU",
+    "hours": 4,
+    "ects": 5,
+    "semester": "S",
+    "cancelled": false
+  },
+  "212.461": {
+    "courseNumber": "212.461",
+    "name": "Brückenbau",
+    "type": "VU",
+    "hours": 4,
+    "ects": 5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "212.467": {
+    "courseNumber": "212.467",
+    "name": "Betonbrückenbau",
+    "type": "VU",
+    "hours": 4,
+    "ects": 5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.000": {
+    "courseNumber": "220.000",
+    "name": "Fels- und Tunnelbau",
+    "type": "VO",
+    "hours": 1.5,
+    "ects": 2.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "222.574": {
+    "courseNumber": "222.574",
+    "name": "Hydraulik 2",
+    "type": "VO",
+    "hours": 2.5,
+    "ects": 3.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "230.037": {
+    "courseNumber": "230.037",
+    "name": "Transport- und Siedlungswesen",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.159": {
+    "courseNumber": "234.159",
+    "name": "Kalkulation und Kostenrechnung im Baubetrieb",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "235.042": {
+    "courseNumber": "235.042",
+    "name": "Risikobewertung im Bauingenieurwesen",
+    "type": "VU",
+    "hours": 2.5,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "259.383": {
+    "courseNumber": "259.383",
+    "name": "Holzbau 2",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "222.570": {
+    "courseNumber": "222.570",
+    "name": "Engineering Hydrology 2",
+    "type": "VU",
+    "hours": 2,
+    "ects": 2.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "226.043": {
+    "courseNumber": "226.043",
+    "name": "Abwasserreinigung",
+    "type": "VO",
+    "hours": 2,
+    "ects": 2.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.029": {
+    "courseNumber": "220.029",
+    "name": "Bodendynamik",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.005": {
+    "courseNumber": "220.005",
+    "name": "Geotechnik und Naturgefahren",
+    "type": "VU",
+    "hours": 1.5,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.150": {
+    "courseNumber": "234.150",
+    "name": "Bauunternehmensführung und Strategie",
+    "type": "SE",
+    "hours": 1.5,
+    "ects": 1.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "210.007": {
+    "courseNumber": "210.007",
+    "name": "Industriebau",
+    "type": "VU",
+    "hours": 2.5,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "230.038": {
+    "courseNumber": "230.038",
+    "name": "Verkehrsträger- und Mobilitätsmanagement",
+    "type": "VO",
+    "hours": 1.5,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "230.039": {
+    "courseNumber": "230.039",
+    "name": "Eisenbahnwesen 2",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "230.041": {
+    "courseNumber": "230.041",
+    "name": "Straßenplanung und Umweltschutz",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "222.571": {
+    "courseNumber": "222.571",
+    "name": "Wasserwirtschaft und Flussgebietsmanagement",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "226.054": {
+    "courseNumber": "226.054",
+    "name": "Resource Management",
+    "type": "VU",
+    "hours": 1.5,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "222.573": {
+    "courseNumber": "222.573",
+    "name": "Wasserbau",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "S",
+    "cancelled": false
+  },
+  "234.074": {
+    "courseNumber": "234.074",
+    "name": "Bauverfahren im Tunnelbau",
+    "type": "VU",
+    "hours": 3,
+    "ects": 4,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.151": {
+    "courseNumber": "234.151",
+    "name": "Kollaboration in der Baubranche",
+    "type": "SE",
+    "hours": 1.5,
+    "ects": 1.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.153": {
+    "courseNumber": "234.153",
+    "name": "Bauverfahren im Hochbau und TGA-Grundlagen",
+    "type": "VU",
+    "hours": 2.5,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.089": {
+    "courseNumber": "234.089",
+    "name": "Sicherheit und Umweltschutz auf Baustellen",
+    "type": "SE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.166": {
+    "courseNumber": "234.166",
+    "name": "Betriebswirtschaft für Führungskräfte",
+    "type": "VO",
+    "hours": 1,
+    "ects": 1.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.992": {
+    "courseNumber": "234.992",
+    "name": "Bauträger und Immobilienwirtschaft",
+    "type": "SE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "234.167": {
+    "courseNumber": "234.167",
+    "name": "Öffentliches Recht in der Bauwirtschaft",
+    "type": "SE",
+    "hours": 1.5,
+    "ects": 1.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "210.008": {
+    "courseNumber": "210.008",
+    "name": "Integrale Planung",
+    "type": "SE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "210.009": {
+    "courseNumber": "210.009",
+    "name": "Integrated BIM Design Lab",
+    "type": "SE",
+    "hours": 8,
+    "ects": 8,
+    "semester": "W",
+    "cancelled": false
+  },
+  "221.005": {
+    "courseNumber": "221.005",
+    "name": "Grundbau und Bodenmechanik 2",
+    "type": "LU",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.033": {
+    "courseNumber": "220.033",
+    "name": "Spezialtiefbau (inkl. Injektionstechnik)",
+    "type": "VO",
+    "hours": 1.5,
+    "ects": 2.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.019": {
+    "courseNumber": "220.019",
+    "name": "Stability Problems in Rock Engineering",
+    "type": "SE",
+    "hours": 1.5,
+    "ects": 1.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.015": {
+    "courseNumber": "220.015",
+    "name": "Finite Difference Modelling in Geoengineering",
+    "type": "VU",
+    "hours": 2,
+    "ects": 2.5,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.035": {
+    "courseNumber": "220.035",
+    "name": "Ingenieurgeologie",
+    "type": "VO",
+    "hours": 2,
+    "ects": 3,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.036": {
+    "courseNumber": "220.036",
+    "name": "Übungen zu Ingenieurgeologie",
+    "type": "UE",
+    "hours": 1,
+    "ects": 1,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.024": {
+    "courseNumber": "220.024",
+    "name": "Sprengtechnik",
+    "type": "UE",
+    "hours": 2,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  },
+  "220.043": {
+    "courseNumber": "220.043",
+    "name": "Geothermie",
+    "type": "VU",
+    "hours": 1.5,
+    "ects": 2,
+    "semester": "W",
+    "cancelled": false
+  }
+}
