@@ -110,7 +110,65 @@
     return legacy ? migrateLegacy(legacy) : defaultState();
   }
 
-  // The former Next.js version stored its own specialization ids and used course numbers as course ids.
+  // Courses the former Next.js version keyed by name instead of course number. "numerical-geotechnics"
+  // has no entry: TISS no longer lists Numerical Geotechnics.
+  const LEGACY_COURSE_IDS = {
+    "planungsprozesse-bim":    "vu-planungsprozesse-mit-bim-3-0",
+    "planung-baubetrieb":      "vu-planung-und-ausfuehrung-des-baubetriebs-4-0",
+    "bauwirtschaft-pm-2":      "se-bauwirtschaft-und-projektmanagement-2-1-5",
+    "projektentwicklung":      "vo-projektentwicklung-2-0",
+    "zukunftsfragen":          "se-zukunftsfragen-des-baubetriebs-1-5",
+    "icpm":                    "se-international-construction-project-management-2-0",
+    "bauvertraege":            "se-bauvertraege-und-vergabe-3-0",
+    "abweichungsmanagement":   "se-abweichungsmanagement-2-0",
+    "arbeitsrecht":            "vo-arbeits-und-sozialrecht-in-der-bauwirtschaft-2-0",
+    "bauprojektcontrolling":   "se-bauprojektcontrolling-1-5",
+    "kostenrelevanz":          "se-kostenrelevanz-im-planungsprozess-2-0",
+    "lebenszykluskosten":      "se-lebenszykluskosten-und-analyse-2-0",
+    "industriebauseminar":     "se-industriebauseminar-mit-exkursion-2-5",
+    "grundbau-2":              "vo-grundbau-und-bodenmechanik-2-3-0",
+    "baugrunderkundung":       "vu-baugrunderkundung-und-gebirgsklassifikation-2-5",
+    "constitutive-soils":      "se-constitutive-modelling-of-soils-2-5",
+    "geosynthetics":           "se-geosynthetics-2-5",
+    "angewandte-fels-ue":      "ue-angewandte-felsmechanik-2-0",
+    "angewandte-fels-ex":      "ex-angewandte-felsmechanik-2-0",
+    "tech-gesteinskunde-vo":   "vo-technische-gesteinskunde-2-0",
+    "tech-gesteinskunde-ue":   "ue-technische-gesteinskunde-2-0",
+    "sanierung-naturstein":    "se-sanierung-von-bauwerken-aus-naturstein-1-5",
+    "underground-excavation":  "se-underground-excavation-design-1-5",
+    "luftbild-geologie":       "ue-luftbildinterpretation-zur-geologie-1-5",
+    "sprengtechnik-vo":        "vo-sprengtechnik-4-5",
+    "wasser-boden":            "vu-modellierung-von-wasser-im-boden-3-0",
+    "bauphysik-gebaeude":      "vu-bauphysik-gebaeudeanalyse-5-0",
+    "baustatik-software":      "vu-baustatik-software-1-5",
+    "numerische-baudynamik":   "vu-numerische-methoden-in-der-baudynamik-2-0",
+    "software-konstruktiv":    "se-softwareeinsatz-im-konstruktiven-ingenieurbau-2-0",
+    "strukturoptimierung":     "vo-strukturoptimierung-3-0",
+    "betonbau-2":              "vu-betonbau-2-4-0",
+    "advanced-concrete":       "vu-advanced-concrete-engineering-5-0",
+    "erhaltung-beton":         "vo-erhaltung-und-ertuechtigung-von-betontragwerken-2-5",
+    "hochbau-3":               "vu-hochbaukonstruktionen-3-4-0",
+    "werkstoffe-2":            "vo-werkstoffe-im-bauwesen-2-4-0",
+    "werkstoffe-3":            "vu-werkstoffe-im-bauwesen-3-5-0",
+    "verkehrswirtschaft":      "vo-verkehrswirtschaft-2-0",
+    "strassenbau-erhaltung":   "vo-strassenbau-und-strassenerhaltung-3-0",
+    "umwelthygiene":           "vo-umwelthygiene-3-0",
+    "bahnerhaltung":           "vo-bahnerhaltung-2-0",
+    "seilbahnen":              "vu-seilbahnen-3-0",
+    "spurfuehrung":            "vo-spurfuehrungstechnik-2-0",
+    "road-pavement":           "vo-road-pavement-materials-3-0",
+    "pavement-design":         "vo-pavement-design-and-modelling-3-0",
+    "abfallwirtschaft":        "vu-abfallwirtschaft-und-entsorgungstechnik-2-0",
+    "stahlwasserbau":          "vo-stahlwasserbau-2-0",
+    "verkehrswasserbau":       "vo-verkehrswasserbau-2-0",
+    "grundwassermodellierung": "vu-grundwassermodellierung-4-0",
+    "hydrometry":              "vu-hydrometry-2-0",
+    "bio-chem-wasser":         "vo-biologie-und-chemie-in-der-wasserguetewirtschaft-3-0",
+    "niederschlagswasser":     "vu-niederschlagswasserbehandlung-und-schmutzfrachtsimulation-2-5",
+    "env-economic":            "vu-environmental-and-economic-assessment-3-0",
+  };
+
+  // The former Next.js version stored its own specialization ids and mostly used course numbers as course ids.
   function migrateLegacy(legacy) {
     const specIds = { "ki-tw": "TW", "ki-ts": "TS", gt: "GT", bm: "BM", vm: "VM", wr: "WR" };
     const itemByCourseNr = {};
@@ -121,8 +179,10 @@
     state.spec1 = specIds[legacy.specialization1] || null;
     state.spec2 = specIds[legacy.specialization2] || null;
     for (const [id, on] of Object.entries(legacy.courses || {})) {
+      if (!on) continue;
       const nr = /^\d{3}\.\d{3}/.exec(id);
-      if (on && nr && itemByCourseNr[nr[0]]) state.selected[itemByCourseNr[nr[0]]] = true;
+      const key = nr ? itemByCourseNr[nr[0]] : LEGACY_COURSE_IDS[id];
+      if (key && ITEMS[key]) state.selected[key] = true;
     }
     return state;
   }
