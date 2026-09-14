@@ -255,6 +255,7 @@
     passcode: document.getElementById("passcode"),
     loginDialog: document.getElementById("login-dialog"),
     loginForm: document.getElementById("login-form"),
+    syncSpinner: document.getElementById("sync-spinner"),
   };
 
   function commit() {
@@ -493,14 +494,15 @@
   }
 
   function renderAccount() {
+    el.syncSpinner.hidden = !(account && syncStatus === "saving");
     if (!account) {
       el.account.innerHTML = `<button type="button" data-action="login">Anmelden</button>
         <button type="button" class="primary" data-action="signup">Registrieren</button>`;
       return;
     }
-    const status = { saving: "Speichert …", saved: "Gespeichert", error: "Speichern fehlgeschlagen" }[syncStatus];
+    const failed = syncStatus === "error" ? `<span class="sync-error">Speichern fehlgeschlagen</span>` : "";
     el.account.innerHTML = `<span class="account-name">${esc(account.name)}</span>
-      <span class="sync ${syncStatus}">${status}</span>
+      ${failed}
       <button type="button" data-action="logout">Abmelden</button>`;
   }
 
