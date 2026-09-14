@@ -1,1 +1,4 @@
-.next/cache
+.venv/
+__pycache__/
+scripts/.cache/
+.mypy_cache/
