@@ -53,7 +53,6 @@ main, .sections { display: grid; gap: 16px; min-width: 0; }
   padding: 16px;
   min-width: 0;
 }
-.card > header, .subgroup > header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
 .card h2 { font-size: 1.15rem; margin-bottom: 6px; }
 .card h3 { font-size: 1rem; margin-bottom: 4px; }
 .card h4 {
@@ -64,8 +63,23 @@ main, .sections { display: grid; gap: 16px; min-width: 0; }
   color: var(--muted);
 }
 
-.section-title { font-size: 1.3rem; margin-top: 12px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-top: 12px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--line);
+}
+.section-head h2 { font-size: 1.3rem; }
+.section-progress { display: flex; align-items: center; gap: 12px; }
+.section-progress .bar { width: 160px; margin: 0; }
 .subgroup { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+.subgroup:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.subgroup > header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.subgroup h3 { margin: 0; }
 .subgroup .score { font-size: 1.15rem; }
 .card .notice { margin: 12px 0 0; }
 .hint { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }

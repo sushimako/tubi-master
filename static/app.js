@@ -296,12 +296,16 @@
     return `<div class="bar${current >= required - EPS ? " done" : ""}"><span style="width:${percent}%"></span></div>`;
   }
 
-  function scoreHeader(title, current, required, hint = "") {
-    return `<header>
-        <div>${title ? `<h3>${esc(title)}</h3>` : ""}${hint ? `<p class="hint">${hint}</p>` : ""}</div>
-        <div class="score">${fmt(current)}<small> / ${fmt(required)} ECTS</small></div>
-      </header>
-      ${progressBar(current, required)}`;
+  function score(current, required) {
+    return `<div class="score">${fmt(current)}<small> / ${fmt(required)} ECTS</small></div>`;
+  }
+
+  // Only top-level module headlines carry a progress bar.
+  function sectionHead(title, current, required) {
+    return `<header class="section-head">
+        <h2>${esc(title)}</h2>
+        <div class="section-progress">${progressBar(current, required)}${score(current, required)}</div>
+      </header>`;
   }
 
   // M1 or M2, grouped by the chosen specializations.
@@ -309,14 +313,13 @@
     const modules = chosen.map((spec) => spec[level]);
     const { current, required } = evaluation.rows.find((r) => r.id === level.toUpperCase());
     const subgroups = modules.map((m, i) => `<div class="subgroup">
-        ${scoreHeader(`${chosen[i].name} (${m.id})`, evaluation.current[m.id], m.required)}
+        <header><h3>${esc(`${chosen[i].name} (${m.id})`)}</h3>${score(evaluation.current[m.id], m.required)}</header>
         ${table(m.items, m.id)}
       </div>`).join("");
     const missing = chosen.length < 2
       ? `<p class="notice">Wähle oben ${chosen.length ? "eine zweite Vertiefungsrichtung" : "zwei Vertiefungsrichtungen"}, um die LVAs zu sehen.</p>`
       : "";
-    return `<h2 class="section-title">${title}</h2>
-      <section class="card">${scoreHeader("", current, required)}${subgroups}${missing}</section>`;
+    return `${sectionHead(title, current, required)}<section class="card">${subgroups}${missing}</section>`;
   }
 
   function group(id, title, keys, category) {
@@ -347,21 +350,18 @@
     }
 
     html.push(
-      `<h2 class="section-title">${esc(C.interdisciplinary.name)}</h2>
-      <section class="card">
-        ${scoreHeader("", row("IA").current, C.interdisciplinary.required)}
-        ${table(C.interdisciplinary.items, "IA")}
-      </section>`,
+      `${sectionHead(C.interdisciplinary.name, row("IA").current, C.interdisciplinary.required)}
+      <section class="card">${table(C.interdisciplinary.items, "IA")}</section>`,
       levelSection("m1", "Masterspezifische Ausbildung (M1)", chosen),
       levelSection("m2", "Vertiefende Ausbildung (M2)", chosen),
     );
 
     const m3 = row("M3");
-    html.push(`<h2 class="section-title">Ergänzende Ausbildung (M3)</h2>
+    html.push(`${sectionHead("Ergänzende Ausbildung (M3)", m3.current, m3.required)}
       <section class="card">
-        ${scoreHeader("", m3.current, m3.required, `Noch nicht gewählte LVAs aus allen M1- und M2-Modulen.
+        <p class="hint">Noch nicht gewählte LVAs aus allen M1- und M2-Modulen.
           ECTS, die in den gewählten Modulen über 12 bzw. 16 ECTS hinaus absolviert werden, verringern den Umfang von M3.
-          ${m3.note ? `Aktuell ${esc(m3.note)}.` : ""}`)}
+          ${m3.note ? `Aktuell ${esc(m3.note)}.` : ""}</p>
         ${SPECS.filter((s) => !chosen.includes(s))
           .map((s) => group(`m3-${s.id}`, s.name, unique([...s.m1.items, ...s.m2.items]), "M3"))
           .join("")}
@@ -369,10 +369,10 @@
 
     const fw = row("FW");
     const ts = row("TS");
-    html.push(`<h2 class="section-title">Freie Wahlfächer und Transferable Skills</h2>
+    html.push(`${sectionHead("Freie Wahlfächer und Transferable Skills", fw.current, fw.required)}
       <section class="card">
-        ${scoreHeader("", fw.current, fw.required, `Frei wählbar aus dem Lehrangebot aller anerkannten Universitäten,
-          davon mindestens ${fmt(ts.required)} ECTS Transferable Skills. Die Kataloge sind die Empfehlungen aus TISS.`)}
+        <p class="hint">Frei wählbar aus dem Lehrangebot aller anerkannten Universitäten,
+          davon mindestens ${fmt(ts.required)} ECTS Transferable Skills. Die Kataloge sind die Empfehlungen aus TISS.</p>
         <p class="subscore${ts.current >= ts.required - EPS ? " done" : ""}">davon Transferable Skills: ${fmt(ts.current)} / ${fmt(ts.required)} ECTS</p>
         <h4>Transferable Skills</h4>
         ${C.catalogs.ts.map((g, i) => group(`ts-${i}`, g.name, g.items, "TS")).join("")}
