@@ -285,10 +285,7 @@
   function table(keys, category) {
     const rows = keys.filter(visible).map((key) => itemRow(key, category)).join("");
     if (!rows) return `<p class="empty">Keine LVAs für die aktuellen Filter.</p>`;
-    return `<div class="table-wrap"><table>
-      <thead><tr><th></th><th>LVA</th><th class="num">ECTS</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>`;
+    return `<div class="table-wrap"><table><tbody>${rows}</tbody></table></div>`;
   }
 
   function progressBar(current, required) {
@@ -297,7 +294,7 @@
   }
 
   function score(current, required) {
-    return `<div class="score">${fmt(current)}<small> / ${fmt(required)} ECTS</small></div>`;
+    return `<div class="score">${fmt(current)}<small> / ${fmt(required)}</small></div>`;
   }
 
   // Only top-level module headlines carry a progress bar.
@@ -350,6 +347,7 @@
     }
 
     html.push(
+      `<div class="ects-head" aria-hidden="true">ECTS</div>`,
       `${sectionHead(C.interdisciplinary.name, row("IA").current, C.interdisciplinary.required)}
       <section class="card">${table(C.interdisciplinary.items, "IA")}</section>`,
       levelSection("m1", "Masterspezifische Ausbildung (M1)", chosen),
@@ -373,7 +371,7 @@
       <section class="card">
         <p class="hint">Frei wählbar aus dem Lehrangebot aller anerkannten Universitäten,
           davon mindestens ${fmt(ts.required)} ECTS Transferable Skills. Die Kataloge sind die Empfehlungen aus TISS.</p>
-        <p class="subscore${ts.current >= ts.required - EPS ? " done" : ""}">davon Transferable Skills: ${fmt(ts.current)} / ${fmt(ts.required)} ECTS</p>
+        <p class="subscore${ts.current >= ts.required - EPS ? " done" : ""}">davon Transferable Skills: ${fmt(ts.current)} / ${fmt(ts.required)}</p>
         <h4>Transferable Skills</h4>
         ${C.catalogs.ts.map((g, i) => group(`ts-${i}`, g.name, g.items, "TS")).join("")}
         <h4>Freie Wahlfächer</h4>

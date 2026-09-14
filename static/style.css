@@ -81,6 +81,9 @@ main, .sections { display: grid; gap: 16px; min-width: 0; }
 .subgroup > header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 6px; }
 .subgroup h3 { margin: 0; }
 .subgroup .score { font-size: 1.15rem; }
+/* Card padding (16px) + border + cell padding (8px): scores end where the ECTS cells end. */
+.section-head { padding-right: 25px; }
+.subgroup > header { padding-right: 8px; }
 .card .notice { margin: 12px 0 0; }
 .hint { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
 .score { font-size: 1.4rem; font-weight: 700; color: var(--tu); white-space: nowrap; }
@@ -123,15 +126,16 @@ select, input[type=search], input[type=number], input[name=title] {
 
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-th {
-  text-align: left;
+/* The single "ECTS" label above the column all scores and LVA ECTS right-align to. */
+.ects-head {
+  text-align: right;
+  padding-right: 25px;
+  margin-bottom: -14px;
   font-size: .7rem;
   text-transform: uppercase;
   letter-spacing: .05em;
   color: var(--muted);
   font-weight: 600;
-  padding: 6px 8px;
-  border-bottom: 1px solid var(--line);
 }
 td { padding: 7px 8px; border-bottom: 1px solid var(--line-soft); vertical-align: top; }
 tbody tr { cursor: pointer; }
@@ -143,6 +147,8 @@ td.cb { width: 28px; }
 td.cb input { margin-top: 3px; pointer-events: none; }
 .num { text-align: right; white-space: nowrap; width: 52px; }
 td.ects { font-weight: 700; color: var(--tu); }
+/* Groups add a 1px border; keep their ECTS on the same column as the module tables. */
+details.group td.ects { padding-right: 7px; }
 .name { font-weight: 600; }
 
 .meta {
