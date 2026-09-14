@@ -6,9 +6,22 @@ Flask serves one page; all choices are stored in the browser's localStorage.
 ## Run
 
 ```sh
-uv run app.py                                        # dev server on http://localhost:8000
-uv run --no-dev gunicorn --bind 0.0.0.0:8000 app:app # production (see curriculum.service)
+uv run app.py   # dev server on http://localhost:8000
 ```
+
+## Deploy
+
+Deployment copies the code to a Linux host over SSH, installs the dependencies there with
+uv and runs the app with gunicorn as a systemd service on port 8000. Locally you only need
+`ssh` and `rsync`; the host needs `sudo` (uv is installed automatically if missing).
+
+```sh
+DEPLOY_HOST=myvm.exe.xyz ops/deploy.sh   # sync, install, (re)start and check the service
+```
+
+The code goes to `~/tubi-master` and the service is called `curriculum`, replacing the unit of
+the former Next.js version. Override with `DEPLOY_DIR`, `DEPLOY_SERVICE` and `DEPLOY_PORT`.
+Deploys never touch `instance/` on the host.
 
 ## Accounts
 
@@ -40,4 +53,5 @@ data is kept as is.
 - `templates/index.html`, `static/app.js`, `static/style.css` – the planner UI, including the ECTS rules
 - `data/curriculum.json` – generated curriculum data
 - `scripts/scrape_tiss.py` – TISS scraper
+- `ops/` – deployment script and systemd unit template
 - `instance/` – SQLite database and secret key (created on first start, not in git)

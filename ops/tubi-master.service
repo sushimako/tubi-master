@@ -1,0 +1,16 @@
+# systemd unit template; ops/deploy.sh fills in the @PLACEHOLDERS@ and installs it on the host.
+[Unit]
+Description=TU Wien Curriculum Planner
+After=network.target
+
+[Service]
+Type=simple
+User=@USER@
+WorkingDirectory=@APP_DIR@
+# --preload imports the app once before forking, so the secret key and schema are created exactly once.
+ExecStart=@APP_DIR@/.venv/bin/gunicorn --preload --workers 2 --bind 0.0.0.0:@PORT@ app:app
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
