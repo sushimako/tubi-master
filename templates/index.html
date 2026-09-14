@@ -68,19 +68,31 @@
     <button type="button" id="reset" class="danger">Auswahl zurücksetzen</button>
   </footer>
 
-  <dialog id="signup-dialog" class="dialog">
-    <form id="signup-form">
+  <dialog id="account-dialog" class="dialog">
+    <form id="login-form">
+      <h2>Anmelden</h2>
+      <p class="hint">Deine gespeicherte Auswahl ersetzt die Auswahl in diesem Browser.</p>
+      <label>Passcode <input name="passcode" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="passcode" required></label>
+      <p class="form-error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" data-close>Abbrechen</button>
+        <button type="submit">Anmelden</button>
+      </div>
+      <p class="dialog-switch">Noch keinen Passcode? <button type="button" data-view="signup">Registrieren</button></p>
+    </form>
+    <form id="signup-form" hidden>
       <h2>Registrieren</h2>
       <p class="hint">
         Deine aktuelle Auswahl wird gespeichert. Danach bekommst du einen Passcode,
         mit dem du dich später wieder anmelden kannst.
       </p>
-      <label>Anzeigename <input name="name" autocomplete="nickname" placeholder="max. 16 Zeichen, Emojis erlaubt" required></label>
+      <label>Anzeigename <input name="name" autocomplete="nickname" required></label>
       <p class="form-error" hidden></p>
       <div class="dialog-actions">
         <button type="button" data-close>Abbrechen</button>
         <button type="submit">Registrieren</button>
       </div>
+      <p class="dialog-switch">Schon registriert? <button type="button" data-view="login">Anmelden</button></p>
     </form>
     <div id="signup-done" hidden>
       <h2>Dein Passcode</h2>
@@ -93,19 +105,6 @@
         <button type="button" class="primary" data-close>Hab ich aufgeschrieben</button>
       </div>
     </div>
-  </dialog>
-
-  <dialog id="login-dialog" class="dialog">
-    <form id="login-form">
-      <h2>Anmelden</h2>
-      <p class="hint">Deine gespeicherte Auswahl ersetzt die Auswahl in diesem Browser.</p>
-      <label>Passcode <input name="passcode" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="wort-wort" required></label>
-      <p class="form-error" hidden></p>
-      <div class="dialog-actions">
-        <button type="button" data-close>Abbrechen</button>
-        <button type="submit">Anmelden</button>
-      </div>
-    </form>
   </dialog>
 
   <script>

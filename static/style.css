@@ -340,6 +340,8 @@ button.danger {
 .dialog-actions button[type=submit], .dialog-actions button.primary { background: var(--tu); border-color: var(--tu); color: #fff; }
 .dialog-actions button:disabled { opacity: .6; cursor: wait; }
 .form-error { color: var(--bad); font-size: .85rem; margin: 8px 0 0; }
+.dialog-switch { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line-soft); font-size: .85rem; color: var(--muted); }
+.dialog-switch button { background: none; border: 0; padding: 0; color: var(--tu); font-weight: 600; text-decoration: underline; cursor: pointer; }
 .passcode {
   margin: 8px 0 12px;
   padding: 14px;

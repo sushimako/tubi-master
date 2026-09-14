@@ -249,12 +249,11 @@
     customForm: document.getElementById("custom-form"),
     customList: document.getElementById("custom-list"),
     account: document.getElementById("account"),
-    signupDialog: document.getElementById("signup-dialog"),
+    accountDialog: document.getElementById("account-dialog"),
+    loginForm: document.getElementById("login-form"),
     signupForm: document.getElementById("signup-form"),
     signupDone: document.getElementById("signup-done"),
     passcode: document.getElementById("passcode"),
-    loginDialog: document.getElementById("login-dialog"),
-    loginForm: document.getElementById("login-form"),
     syncSpinner: document.getElementById("sync-spinner"),
   };
 
@@ -496,8 +495,7 @@
   function renderAccount() {
     el.syncSpinner.hidden = !(account && syncStatus === "saving");
     if (!account) {
-      el.account.innerHTML = `<button type="button" data-action="login">Anmelden</button>
-        <button type="button" class="primary" data-action="signup">Registrieren</button>`;
+      el.account.innerHTML = `<button type="button" class="primary" data-action="login">Anmelden</button>`;
       return;
     }
     const failed = syncStatus === "error" ? `<span class="sync-error">Speichern fehlgeschlagen</span>` : "";
@@ -517,12 +515,14 @@
     error.hidden = !message;
   }
 
-  function openDialog(dialog, form) {
-    form.reset();
-    form.hidden = false;
-    setFormError(form, "");
-    dialog.showModal();
-    form.querySelector("input").focus();
+  // Shows one view of the account dialog: "login", "signup" or "done".
+  function showAccountView(view) {
+    const views = { login: el.loginForm, signup: el.signupForm, done: el.signupDone };
+    for (const [name, element] of Object.entries(views)) element.hidden = name !== view;
+    if (view === "done") return;
+    views[view].reset();
+    setFormError(views[view], "");
+    views[view].querySelector("input").focus();
   }
 
   // Runs a form's request with its submit button disabled and shows failures in the form.
@@ -541,11 +541,9 @@
 
   el.account.addEventListener("click", async (event) => {
     const action = event.target.closest("[data-action]")?.dataset.action;
-    if (action === "signup") {
-      el.signupDone.hidden = true;
-      openDialog(el.signupDialog, el.signupForm);
-    } else if (action === "login") {
-      openDialog(el.loginDialog, el.loginForm);
+    if (action === "login") {
+      el.accountDialog.showModal();
+      showAccountView("login");
     } else if (action === "logout") {
       if (syncStatus === "saving") {
         clearTimeout(syncTimer);
@@ -561,6 +559,11 @@
     button.addEventListener("click", () => button.closest("dialog").close());
   }
 
+  el.accountDialog.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-view]");
+    if (button) showAccountView(button.dataset.view);
+  });
+
   el.signupForm.addEventListener("submit", (event) => {
     event.preventDefault();
     submitForm(el.signupForm, async () => {
@@ -575,8 +578,7 @@
       syncStatus = "saved";
       renderAccount();
       el.passcode.textContent = data.passcode;
-      el.signupForm.hidden = true;
-      el.signupDone.hidden = false;
+      showAccountView("done");
     });
   });
 
@@ -588,7 +590,7 @@
       state = normalizeState(account.selection);
       syncStatus = "saved";
       writeJson(STORAGE_KEY, state);
-      el.loginDialog.close();
+      el.accountDialog.close();
       render();
       renderAccount();
     });
