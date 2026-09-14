@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Curriculum Planner – Master Bauingenieurwissenschaften</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1>Curriculum Planner</h1>
+      <p>TU Wien Masterstudium Bauingenieurwissenschaften (UE 066 505) · Studienplan 2025</p>
+    </div>
+  </header>
+
+  <div class="wrap layout">
+    <main>
+      <section class="card">
+        <h2>Vertiefungsrichtungen</h2>
+        <p class="hint">
+          Wähle zwei der sechs Vertiefungsrichtungen. Jede besteht aus M1 (Masterspezifische Ausbildung, 12 ECTS)
+          und M2 (Vertiefende Ausbildung, 16 ECTS). ECTS über 12 bzw. 16 hinaus verringern den Umfang von M3.
+        </p>
+        <div class="spec-grid">
+          <label>Vertiefungsrichtung 1 <select id="spec1"></select></label>
+          <label>Vertiefungsrichtung 2 <select id="spec2"></select></label>
+        </div>
+        <div class="filters">
+          <div class="segmented" id="semester-filter" role="group" aria-label="Semester">
+            <button type="button" data-value="all">Alle</button>
+            <button type="button" data-value="W">WS</button>
+            <button type="button" data-value="S">SS</button>
+          </div>
+          <label class="check"><input type="checkbox" id="only-selected"> Nur ausgewählte</label>
+          <label class="check"><input type="checkbox" id="only-offered"> Nur angebotene</label>
+          <input type="search" id="search" placeholder="LVA suchen (Titel oder Nummer)">
+        </div>
+      </section>
+
+      <div id="sections" class="sections"></div>
+
+      <section class="card">
+        <h3>Eigene LVAs</h3>
+        <p class="hint">
+          Für Freie Wahlfächer oder Transferable Skills, die in keinem Katalog stehen,
+          z.&nbsp;B. LVAs anderer Studien, Universitäten oder aus Auslandsaufenthalten.
+        </p>
+        <form id="custom-form" class="custom-form">
+          <input name="title" placeholder="Titel" required>
+          <input name="ects" type="number" min="0.5" step="0.5" placeholder="ECTS" required>
+          <label class="check"><input type="checkbox" name="ts"> Transferable Skill</label>
+          <button type="submit">Hinzufügen</button>
+        </form>
+        <ul id="custom-list" class="custom-list"></ul>
+      </section>
+    </main>
+
+    <aside id="progress" class="progress" aria-label="Fortschritt"></aside>
+  </div>
+
+  <footer class="wrap site-footer">
+    <p>
+      Daten: <a href="{{ curriculum.sources.curriculum }}" target="_blank" rel="noopener">TISS</a>
+      (Studienjahre {{ curriculum.sources.academicYears | join(', ') }}, Stand {{ curriculum.generated }}) und
+      <a href="{{ curriculum.sources.pdf }}" target="_blank" rel="noopener">Studienplan 2025 (PDF)</a>.
+      Keine offizielle TU Wien Anwendung. Deine Auswahl wird nur lokal in diesem Browser gespeichert.
+    </p>
+    <button type="button" id="reset" class="danger">Auswahl zurücksetzen</button>
+  </footer>
+
+  <script>window.CURRICULUM = {{ curriculum | tojson }};</script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
