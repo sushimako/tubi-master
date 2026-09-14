@@ -12,6 +12,13 @@
   // ---- Curriculum indexes --------------------------------------------------
 
   const SPECS = C.specializations;
+  // Special case: "Konstruktiver Ingenieurbau - Tragwerke" and "- Theorie und Simulation" are too verbose.
+  const shortenName = (name) => name.replace(/Konstruktiver Ingenieurbau\s*[-–]\s*/, "");
+  for (const spec of SPECS) {
+    spec.name = shortenName(spec.name);
+    spec.m1.name = shortenName(spec.m1.name);
+    spec.m2.name = shortenName(spec.m2.name);
+  }
   const specById = Object.fromEntries(SPECS.map((s) => [s.id, s]));
   const moduleById = {};
   const modulesOfItem = {};
