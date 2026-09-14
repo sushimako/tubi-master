@@ -53,6 +53,11 @@
 
   const numberFormat = new Intl.NumberFormat("de-AT", { maximumFractionDigits: 2 });
   const fmt = (n) => numberFormat.format(Math.round(n * 100) / 100);
+  // Whole numbers reserve the width of a decimal part, so columns align on the decimal comma.
+  const num = (n) => {
+    const [whole, decimals] = fmt(n).split(",");
+    return decimals ? `${whole}<span class="dec">,${decimals}</span>` : `${whole}<span class="dec pad">,0</span>`;
+  };
   const esc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]);
   const semesterLabel = (code) => `${code.endsWith("W") ? "WS" : "SS"} ${code.slice(2, 4)}`;
   const sumEcts = (keys) => keys.reduce((total, key) => total + ITEMS[key].ects, 0);
@@ -278,7 +283,7 @@
     return `<tr data-key="${key}" class="${on ? "on" : ""}${info.seasons.size ? "" : " muted"}">
       <td class="cb"><input type="checkbox"${on ? " checked" : ""} aria-label="${esc(item.title)}"></td>
       <td><div class="name">${esc(item.title)}</div><div class="meta"><span class="badge type">${item.type}</span>${seasons}${status}${courses}${counted}</div></td>
-      <td class="num ects">${fmt(item.ects)}</td>
+      <td class="num ects">${num(item.ects)}</td>
     </tr>`;
   }
 
@@ -294,7 +299,7 @@
   }
 
   function score(current, required) {
-    return `<div class="score">${fmt(current)}<small> / ${fmt(required)}</small></div>`;
+    return `<div class="score">${fmt(current)}<small> / ${num(required)}</small></div>`;
   }
 
   // Only top-level module headlines carry a progress bar.
@@ -409,7 +414,7 @@
         ${rows.map((r) => `<li class="${r.current >= r.required - EPS ? "done" : ""}${r.sub ? " sub" : ""}" title="${esc(r.label)}">
           <div class="row">
             <span class="short">${esc(r.short)}</span>
-            <span class="value">${fmt(r.current)} / ${fmt(r.required)}${r.current > r.required + EPS ? `<sup>+${fmt(r.current - r.required)}</sup>` : ""}</span>
+            <span class="value"><span class="cur">${num(r.current)}</span><span class="sep">/</span><span class="req">${num(r.required)}</span>${r.current > r.required + EPS ? `<sup>+${fmt(r.current - r.required)}</sup>` : ""}</span>
           </div>
           ${progressBar(r.current, r.required)}
           ${r.note ? `<small>${esc(r.note)}</small>` : ""}

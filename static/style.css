@@ -86,7 +86,8 @@ main, .sections { display: grid; gap: 16px; min-width: 0; }
 .subgroup > header { padding-right: 8px; }
 .card .notice { margin: 12px 0 0; }
 .hint { color: var(--muted); font-size: .9rem; margin: 0 0 12px; }
-.score { font-size: 1.4rem; font-weight: 700; color: var(--tu); white-space: nowrap; }
+.score { font-size: 1.4rem; font-weight: 700; color: var(--tu); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.dec.pad { visibility: hidden; }
 .score small { font-size: .8rem; font-weight: 500; color: var(--muted); }
 .subscore { font-size: .85rem; color: var(--muted); margin: 4px 0 0; font-weight: 600; }
 .subscore.done { color: var(--ok); }
@@ -146,7 +147,7 @@ tr.muted .name { color: var(--muted); }
 td.cb { width: 28px; }
 td.cb input { margin-top: 3px; pointer-events: none; }
 .num { text-align: right; white-space: nowrap; width: 52px; }
-td.ects { font-weight: 700; color: var(--tu); }
+td.ects { font-weight: 700; color: var(--tu); font-variant-numeric: tabular-nums; }
 /* Groups add a 1px border; keep their ECTS on the same column as the module tables. */
 details.group td.ects { padding-right: 7px; }
 .name { font-weight: 600; }
@@ -242,6 +243,12 @@ button.link { background: none; border: 0; color: var(--bad); cursor: pointer; p
 .progress li .short { font-weight: 600; }
 .progress li .value { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 600; }
 .progress li.done .value { color: var(--ok); }
+/* Same size in top and sub rows, otherwise the em-based cells and pads differ and digits drift. */
+.progress li .value { font-size: .88rem; }
+.progress li .value .cur, .progress li .value .req { display: inline-block; min-width: 2.25em; text-align: right; }
+.progress li .value .sep { padding: 0 .25em; }
+/* Smaller decimals keep the reserved space for whole numbers from opening wide gaps. */
+.progress li .value .dec { font-size: .72em; }
 .progress li sup { color: var(--warn); margin-left: 2px; }
 .progress li .bar { margin: 4px 0 0; height: 5px; }
 .progress li small { color: var(--muted); font-size: .75rem; }
