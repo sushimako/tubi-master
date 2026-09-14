@@ -315,7 +315,7 @@
     const modules = chosen.map((spec) => spec[level]);
     const { current, required } = evaluation.rows.find((r) => r.id === level.toUpperCase());
     const subgroups = modules.map((m, i) => `<div class="subgroup">
-        <header><h3>${esc(`${chosen[i].name} (${m.id})`)}</h3>${score(evaluation.current[m.id], m.required)}</header>
+        <header><h3>${esc(chosen[i].name)}</h3>${score(evaluation.current[m.id], m.required)}</header>
         ${table(m.items, m.id)}
       </div>`).join("");
     const missing = chosen.length < 2
