@@ -284,6 +284,47 @@ button.danger {
   cursor: pointer;
 }
 
+.header-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; }
+.account { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.account button {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .6);
+  border-radius: 8px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.account button.primary { background: #fff; color: var(--tu-dark); border-color: #fff; font-weight: 600; }
+.account-name { font-weight: 600; }
+.sync { font-size: .8rem; opacity: .8; }
+.sync.error { color: #ffd2d2; opacity: 1; }
+
+.dialog {
+  border: 0;
+  border-radius: var(--radius);
+  padding: 20px;
+  width: min(420px, calc(100vw - 32px));
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .25);
+}
+.dialog::backdrop { background: rgba(0, 20, 35, .45); }
+.dialog h2 { font-size: 1.2rem; margin-bottom: 8px; }
+.dialog label { display: grid; gap: 4px; font-size: .85rem; font-weight: 600; }
+.dialog input { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; }
+.dialog-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+.dialog-actions button { border: 1px solid var(--line); border-radius: 8px; background: #fff; padding: 8px 14px; cursor: pointer; }
+.dialog-actions button[type=submit], .dialog-actions button.primary { background: var(--tu); border-color: var(--tu); color: #fff; }
+.dialog-actions button:disabled { opacity: .6; cursor: wait; }
+.form-error { color: var(--bad); font-size: .85rem; margin: 8px 0 0; }
+.passcode {
+  margin: 8px 0 12px;
+  padding: 14px;
+  border-radius: 8px;
+  background: var(--tu-tint);
+  text-align: center;
+  font: 600 1.5rem/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  user-select: all;
+}
+
 @media (max-width: 900px) {
   body { padding-bottom: 72px; }
   .layout { grid-template-columns: minmax(0, 1fr); }

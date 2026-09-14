@@ -10,6 +10,14 @@ uv run app.py                                        # dev server on http://loca
 uv run --no-dev gunicorn --bind 0.0.0.0:8000 app:app # production (see curriculum.service)
 ```
 
+## Accounts
+
+Signing up is optional. It stores the selection in `instance/tubi.sqlite3` and hands out a
+two-word passcode from the [EFF large wordlist](https://www.eff.org/dice) (CC BY 3.0 US,
+`data/wordlist.txt`). Only an HMAC of the passcode is stored, keyed with `instance/secret.key`,
+which is created on first start and also signs the session cookie. Back it up together with
+the database: if it is lost or replaced, every passcode stops working.
+
 ## Update the curriculum data
 
 ```sh
@@ -32,3 +40,4 @@ data is kept as is.
 - `templates/index.html`, `static/app.js`, `static/style.css` – the planner UI, including the ECTS rules
 - `data/curriculum.json` – generated curriculum data
 - `scripts/scrape_tiss.py` – TISS scraper
+- `instance/` – SQLite database and secret key (created on first start, not in git)

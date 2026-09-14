@@ -8,9 +8,12 @@
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap">
-      <h1>Curriculum Planner</h1>
-      <p>TU Wien Masterstudium Bauingenieurwissenschaften (UE 066 505) · Studienplan 2025</p>
+    <div class="wrap header-inner">
+      <div>
+        <h1>Curriculum Planner</h1>
+        <p>TU Wien Masterstudium Bauingenieurwissenschaften (UE 066 505) · Studienplan 2025</p>
+      </div>
+      <div id="account" class="account"></div>
     </div>
   </header>
 
@@ -59,12 +62,55 @@
       Daten: <a href="{{ curriculum.sources.curriculum }}" target="_blank" rel="noopener">TISS</a>
       (Studienjahre {{ curriculum.sources.academicYears | join(', ') }}, Stand {{ curriculum.generated }}) und
       <a href="{{ curriculum.sources.pdf }}" target="_blank" rel="noopener">Studienplan 2025 (PDF)</a>.
-      Keine offizielle TU Wien Anwendung. Deine Auswahl wird nur lokal in diesem Browser gespeichert.
+      Keine offizielle TU Wien Anwendung. Deine Auswahl wird in diesem Browser gespeichert und, wenn du registriert bist, auch auf dem Server.
     </p>
     <button type="button" id="reset" class="danger">Auswahl zurücksetzen</button>
   </footer>
 
-  <script>window.CURRICULUM = {{ curriculum | tojson }};</script>
+  <dialog id="signup-dialog" class="dialog">
+    <form id="signup-form">
+      <h2>Registrieren</h2>
+      <p class="hint">
+        Deine aktuelle Auswahl wird gespeichert. Danach bekommst du einen Passcode,
+        mit dem du dich später wieder anmelden kannst.
+      </p>
+      <label>Anzeigename <input name="name" autocomplete="nickname" placeholder="max. 16 Zeichen, Emojis erlaubt" required></label>
+      <p class="form-error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" data-close>Abbrechen</button>
+        <button type="submit">Registrieren</button>
+      </div>
+    </form>
+    <div id="signup-done" hidden>
+      <h2>Dein Passcode</h2>
+      <p id="passcode" class="passcode"></p>
+      <p class="hint">
+        <strong>Schreib dir den Passcode auf.</strong> Er ist der einzige Weg, dich wieder anzumelden,
+        und kann nicht wiederhergestellt werden.
+      </p>
+      <div class="dialog-actions">
+        <button type="button" class="primary" data-close>Hab ich aufgeschrieben</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="login-dialog" class="dialog">
+    <form id="login-form">
+      <h2>Anmelden</h2>
+      <p class="hint">Deine gespeicherte Auswahl ersetzt die Auswahl in diesem Browser.</p>
+      <label>Passcode <input name="passcode" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="wort-wort" required></label>
+      <p class="form-error" hidden></p>
+      <div class="dialog-actions">
+        <button type="button" data-close>Abbrechen</button>
+        <button type="submit">Anmelden</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script>
+    window.CURRICULUM = {{ curriculum | tojson }};
+    window.ACCOUNT = {{ account | tojson }};
+  </script>
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

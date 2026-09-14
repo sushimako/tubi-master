@@ -94,16 +94,18 @@
     };
   }
 
+  function normalizeState(saved) {
+    return {
+      ...defaultState(),
+      ...saved,
+      selected: saved.selected || {},
+      custom: Array.isArray(saved.custom) ? saved.custom : [],
+    };
+  }
+
   function loadState() {
     const saved = readJson(STORAGE_KEY);
-    if (saved && typeof saved === "object") {
-      return {
-        ...defaultState(),
-        ...saved,
-        selected: saved.selected || {},
-        custom: Array.isArray(saved.custom) ? saved.custom : [],
-      };
-    }
+    if (saved && typeof saved === "object") return normalizeState(saved);
     const legacy = readJson(LEGACY_KEY);
     return legacy ? migrateLegacy(legacy) : defaultState();
   }
@@ -226,7 +228,10 @@
 
   // ---- State ---------------------------------------------------------------
 
-  let state = loadState();
+  // Signed-in users continue with the selection stored on the server.
+  let account = window.ACCOUNT;
+  let state = account ? normalizeState(account.selection) : loadState();
+  if (account) writeJson(STORAGE_KEY, state);
   const prefs = loadPrefs();
   let query = "";
   let evaluation = evaluate(state);
@@ -243,11 +248,19 @@
     reset: document.getElementById("reset"),
     customForm: document.getElementById("custom-form"),
     customList: document.getElementById("custom-list"),
+    account: document.getElementById("account"),
+    signupDialog: document.getElementById("signup-dialog"),
+    signupForm: document.getElementById("signup-form"),
+    signupDone: document.getElementById("signup-done"),
+    passcode: document.getElementById("passcode"),
+    loginDialog: document.getElementById("login-dialog"),
+    loginForm: document.getElementById("login-form"),
   };
 
   function commit() {
     writeJson(STORAGE_KEY, state);
     render();
+    scheduleSync();
   }
 
   const savePrefs = () => writeJson(PREFS_KEY, prefs);
@@ -437,6 +450,145 @@
 
   // ---- Events --------------------------------------------------------------
 
+  // ---- Account -------------------------------------------------------------
+
+  const NAME_MAX_LENGTH = 16;
+  let syncStatus = "saved";
+  let syncTimer = null;
+
+  async function api(method, path, body) {
+    const options = { method };
+    if (body !== undefined) {
+      options.headers = { "Content-Type": "application/json" };
+      options.body = JSON.stringify(body);
+    }
+    const response = await fetch(path, options);
+    const data = response.status === 204 ? null : await response.json().catch(() => null);
+    if (!response.ok) {
+      const error = new Error(data?.error || "Unbekannter Fehler. Bitte versuche es noch einmal.");
+      error.status = response.status;
+      throw error;
+    }
+    return data;
+  }
+
+  const saveSelection = () => api("PUT", "/api/selection", { selection: state });
+
+  // While signed in, the selection is saved shortly after the last change.
+  function scheduleSync() {
+    if (!account) return;
+    clearTimeout(syncTimer);
+    syncStatus = "saving";
+    renderAccount();
+    syncTimer = setTimeout(async () => {
+      try {
+        await saveSelection();
+        syncStatus = "saved";
+      } catch (error) {
+        syncStatus = "error";
+        if (error.status === 401) account = null;
+      }
+      renderAccount();
+    }, 600);
+  }
+
+  function renderAccount() {
+    if (!account) {
+      el.account.innerHTML = `<button type="button" data-action="login">Anmelden</button>
+        <button type="button" class="primary" data-action="signup">Registrieren</button>`;
+      return;
+    }
+    const status = { saving: "Speichert …", saved: "Gespeichert", error: "Speichern fehlgeschlagen" }[syncStatus];
+    el.account.innerHTML = `<span class="account-name">${esc(account.name)}</span>
+      <span class="sync ${syncStatus}">${status}</span>
+      <button type="button" data-action="logout">Abmelden</button>`;
+  }
+
+  function setFormError(form, message) {
+    const error = form.querySelector(".form-error");
+    error.textContent = message;
+    error.hidden = !message;
+  }
+
+  function openDialog(dialog, form) {
+    form.reset();
+    form.hidden = false;
+    setFormError(form, "");
+    dialog.showModal();
+    form.querySelector("input").focus();
+  }
+
+  // Runs a form's request with its submit button disabled and shows failures in the form.
+  async function submitForm(form, request) {
+    const button = form.querySelector("[type=submit]");
+    button.disabled = true;
+    setFormError(form, "");
+    try {
+      await request();
+    } catch (error) {
+      setFormError(form, error.message);
+    } finally {
+      button.disabled = false;
+    }
+  }
+
+  el.account.addEventListener("click", async (event) => {
+    const action = event.target.closest("[data-action]")?.dataset.action;
+    if (action === "signup") {
+      el.signupDone.hidden = true;
+      openDialog(el.signupDialog, el.signupForm);
+    } else if (action === "login") {
+      openDialog(el.loginDialog, el.loginForm);
+    } else if (action === "logout") {
+      if (syncStatus === "saving") {
+        clearTimeout(syncTimer);
+        await saveSelection().catch(() => {});
+      }
+      await api("POST", "/api/logout").catch(() => {});
+      account = null;
+      renderAccount();
+    }
+  });
+
+  for (const button of document.querySelectorAll("dialog [data-close]")) {
+    button.addEventListener("click", () => button.closest("dialog").close());
+  }
+
+  el.signupForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    submitForm(el.signupForm, async () => {
+      const name = el.signupForm.elements.namedItem("name").value.trim().replace(/\s+/g, " ");
+      // Count characters like the server does (code points), so emojis are not counted twice.
+      const length = [...name].length;
+      if (length === 0 || length > NAME_MAX_LENGTH) {
+        throw new Error(`Der Name muss 1 bis ${NAME_MAX_LENGTH} Zeichen lang sein.`);
+      }
+      const data = await api("POST", "/api/signup", { name, selection: state });
+      account = data.account;
+      syncStatus = "saved";
+      renderAccount();
+      el.passcode.textContent = data.passcode;
+      el.signupForm.hidden = true;
+      el.signupDone.hidden = false;
+    });
+  });
+
+  el.loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    submitForm(el.loginForm, async () => {
+      const data = await api("POST", "/api/login", { passcode: el.loginForm.elements.namedItem("passcode").value });
+      account = data.account;
+      state = normalizeState(account.selection);
+      syncStatus = "saved";
+      writeJson(STORAGE_KEY, state);
+      el.loginDialog.close();
+      render();
+      renderAccount();
+    });
+  });
+
+  // ---- Events --------------------------------------------------------------
+
   const specOptions = `<option value="">– auswählen –</option>` +
     SPECS.map((s) => `<option value="${s.id}">${esc(s.name)} (${s.id})</option>`).join("");
   el.spec1.innerHTML = specOptions;
@@ -534,4 +686,5 @@
   });
 
   render();
+  renderAccount();
 })();
