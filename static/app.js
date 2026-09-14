@@ -187,7 +187,7 @@
     for (const [level, label] of Object.entries(levelLabels)) {
       const subs = specs.map((spec, index) => {
         const m = spec?.[level.toLowerCase()];
-        if (m) return { id: m.id, short: m.id, label: m.name, current: current[m.id], required: m.required, sub: true };
+        if (m) return { id: m.id, short: spec.name, label: m.name, current: current[m.id], required: m.required, sub: true };
         return {
           id: `${level}-${index}`, short: `VR ${index + 1} (nicht gewählt)`, label: `Vertiefungsrichtung ${index + 1} (nicht gewählt)`,
           current: 0, required: SPECS[0][level.toLowerCase()].required, sub: true,
@@ -210,7 +210,7 @@
         note: overflow > EPS ? `inkl. ${fmt(Math.min(overflow, m3Required))} Überhang aus M1/M2` : "",
       },
       {
-        id: "FW", short: "FW+TS", label: "Freie Wahlfächer und Transferable Skills",
+        id: "FW", short: "FW", label: "Freie Wahlfächer und Transferable Skills",
         current: ts + fw, required: C.electives.required,
         note: spill > EPS ? `inkl. ${fmt(spill)} über M3 hinaus` : "",
       },
@@ -413,10 +413,9 @@
       <ul>
         ${rows.map((r) => `<li class="${r.current >= r.required - EPS ? "done" : ""}${r.sub ? " sub" : ""}" title="${esc(r.label)}">
           <div class="row">
-            <span class="short">${esc(r.short)}</span>
+            <span class="short">${esc(r.short)}</span>${progressBar(r.current, r.required)}
             <span class="value"><span class="cur">${num(r.current)}</span><span class="sep">/</span><span class="req">${num(r.required)}</span>${r.current > r.required + EPS ? `<sup>+${fmt(r.current - r.required)}</sup>` : ""}</span>
           </div>
-          ${progressBar(r.current, r.required)}
           ${r.note ? `<small>${esc(r.note)}</small>` : ""}
         </li>`).join("")}
       </ul>
