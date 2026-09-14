@@ -17,6 +17,7 @@ uv and runs the app with gunicorn as a systemd service on port 8000. Locally you
 
 ```sh
 DEPLOY_HOST=myvm.exe.xyz ops/deploy.sh   # sync, install, (re)start and check the service
+DEPLOY_HOST=myvm.exe.xyz ops/backup.sh   # copy database + secret key to ops/backups/
 ```
 
 The code goes to `~/tubi-master` and the service is called `curriculum`, replacing the unit of
@@ -53,5 +54,5 @@ data is kept as is.
 - `templates/index.html`, `static/app.js`, `static/style.css` – the planner UI, including the ECTS rules
 - `data/curriculum.json` – generated curriculum data
 - `scripts/scrape_tiss.py` – TISS scraper
-- `ops/` – deployment script and systemd unit template
+- `ops/` – deployment and backup scripts, systemd unit template
 - `instance/` – SQLite database and secret key (created on first start, not in git)

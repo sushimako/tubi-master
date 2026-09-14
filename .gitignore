@@ -3,3 +3,4 @@ __pycache__/
 instance/
 scripts/.cache/
 .mypy_cache/
+ops/backups/
